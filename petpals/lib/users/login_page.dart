@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:petpals/users/registration_page.dart';
@@ -11,34 +12,24 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _passController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _focusNode = FocusNode();
 
   String? _username;
   String? _password;
-  bool _obscureText = true;
+  bool _obscurePassword = true;
+  bool _showSuffixIcon = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: const Center(child: Text('PetPals')),
-        backgroundColor: Colors.pink[100],
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.logout))],
-      ),
-      */
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
               padding:
-                  const EdgeInsets.only(left: 80.0, right: 80.0, top: 50.0),
+                  const EdgeInsets.only(left: 50.0, right: 50.0, top: 150.0),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -47,23 +38,45 @@ class _LoginPageState extends State<LoginPage> {
                     Image.asset('images/LOGO.png',
                         width: 200, height: 200), // Set the image size
                     const SizedBox(height: 20),
-                    const Text('Login Page'),
                     TextFormField(
+                      controller: _usernameController,
+                      onChanged: (userInput) {
+                        if (userInput.isNotEmpty) {
+                          setState(() {
+                            _showSuffixIcon = true;
+                          });
+                        } else {
+                          setState(() {
+                            _showSuffixIcon = false;
+                          });
+                        }
+                      },
                       decoration: InputDecoration(
                         labelText: 'Username',
                         border: const OutlineInputBorder(),
-                        hintText: 'Enter username',
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () {
-                            print('Clear button pressed');
-                            _nameController.clear(); // Clear the controller
-                            setState(() {}); // Update the UI
-                          },
+                        hintText: 'Enter your username',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        hintStyle: const TextStyle(
+                          color: Colors.grey, // change the color to grey
+                          fontSize: 14,
                         ),
+                        prefixIcon: const Icon(Icons.person),
+                        suffixIcon: _showSuffixIcon
+                            ? IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: () {
+                                  _usernameController
+                                      .clear(); // Clear the controller
+                                  setState(() {
+                                    _showSuffixIcon = false;
+                                  }); // Update the UI
+                                  if (kDebugMode) {
+                                    print('Clear button pressed');
+                                  }
+                                },
+                              )
+                            : null,
                       ),
-                      controller:
-                          _nameController, // Don't forget to assign the controller
                       validator: (username) {
                         if (username == null || username.isEmpty) {
                           return 'Please enter your username';
@@ -72,25 +85,33 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       onSaved: (username) => _username = username ?? '',
                     ),
+                    //------------------------------------------------------------------- textformfield end -------------------------------------------------------------------
                     const SizedBox(height: 10),
+                    //------------------------------------------------------------------- textformfield start -------------------------------------------------------------------
                     TextFormField(
-                      obscureText: _obscureText,
+                      obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: 'Password',
                         hintText: 'Enter password',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        hintStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                        prefixIcon: const Icon(Icons.lock),
                         suffixIcon: GestureDetector(
                           onTap: () {
                             setState(() {
-                              _obscureText = !_obscureText;
+                              _obscurePassword = !_obscurePassword;
                             });
                           },
-                          child: Icon(_obscureText
+                          child: Icon(_obscurePassword
                               ? Icons.visibility
                               : Icons.visibility_off),
                         ),
                       ),
-                      controller: _passController,
+                      controller: _passwordController,
                       validator: (password) {
                         if (password!.isEmpty) {
                           return 'Please enter your password';
@@ -99,7 +120,8 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       onSaved: (password) => _password = password!,
                     ),
-                    const SizedBox(height: 20),
+                    //------------------------------------------------------------------- textformfield end -------------------------------------------------------------------
+                    const SizedBox(height: 10),
                     SizedBox(
                       height: 50,
                       width: double.infinity,
@@ -107,13 +129,22 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState?.save();
-                            // TODO: Implement login logic here
-                            print('Username: $_username, Password: $_password');
-                            _nameController.clear();
-                            _passController.clear();
+
+                            if (kDebugMode) {
+                              print(
+                                  'Username: $_username, Password: $_password');
+                            }
+                            _usernameController.clear();
+                            _passwordController.clear();
                           }
                         },
-                        child: const Text('Login'),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -124,11 +155,16 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const TextSpan(
                             text: "Don't have an account yet? ",
-                            style: TextStyle(color: Colors.black),
+                            style:
+                                TextStyle(fontSize: 15.0, color: Colors.black),
                           ),
                           TextSpan(
                             text: "Signup",
-                            style: const TextStyle(color: Colors.blue),
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(

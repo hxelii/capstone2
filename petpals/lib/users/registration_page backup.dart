@@ -1,4 +1,3 @@
-// ignore_for_file: unused_element
 import 'package:flutter/foundation.dart';
 import 'package:petpals/users/login_page.dart';
 import 'package:flutter/gestures.dart';
@@ -25,49 +24,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   bool _showSuffixIcon_username = false;
   bool _showSuffixIcon_email = false;
 
-  // Function to clear the username field
-  void _clearUsername() {
-    _usernameController.clear();
-    setState(() {
-      _showSuffixIcon_username = false;
-    });
-  }
-
-  // Function to clear the email field
-  void _clearEmail() {
-    _emailController.clear();
-    setState(() {
-      _showSuffixIcon_email = false;
-    });
-  }
-
-  // Function to toggle password visibility
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obscurePassword = !_obscurePassword;
-    });
-  }
-
-  // Function to toggle confirm password visibility
-  void _toggleConfirmPasswordVisibility() {
-    setState(() {
-      _obscureConfirmPassword = !_obscureConfirmPassword;
-    });
-  }
-
-  // Function to validate and save the form
-  void _validateAndPrintForm() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState?.save();
-      print('Username: $_username, Password: $_password');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding:
@@ -107,7 +69,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         suffixIcon: _showSuffixIcon_username
                             ? IconButton(
                                 icon: const Icon(Icons.close),
-                                onPressed: _clearUsername,
+                                onPressed: () {
+                                  _usernameController
+                                      .clear(); // Clear the controller
+                                  setState(() {
+                                    _showSuffixIcon_username = false;
+                                  }); // Update the UI
+                                  if (kDebugMode) {
+                                    print('Usernamelear button pressed');
+                                  }
+                                },
                               )
                             : null,
                       ),
@@ -148,7 +119,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         suffixIcon: _showSuffixIcon_email
                             ? IconButton(
                                 icon: const Icon(Icons.close),
-                                onPressed: _clearEmail,
+                                onPressed: () {
+                                  _emailController
+                                      .clear(); // Clear the controller
+                                  setState(() {
+                                    _showSuffixIcon_email = false;
+                                  }); // Update the UI
+                                  if (kDebugMode) {
+                                    print('Email clear button pressed');
+                                  }
+                                },
                               )
                             : null,
                       ),
@@ -176,10 +156,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         prefixIcon: const Icon(Icons.lock),
                         suffixIcon: GestureDetector(
-                          onTap: _togglePasswordVisibility,
+                          onTap: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
                           child: Icon(_obscurePassword
-                              ? Icons.visibility_off
-                              : Icons.visibility),
+                              ? Icons.visibility
+                              : Icons.visibility_off),
                         ),
                       ),
                       controller: _passwordController,
@@ -207,7 +191,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         prefixIcon: const Icon(Icons.lock),
                         suffixIcon: GestureDetector(
-                          onTap: _toggleConfirmPasswordVisibility,
+                          onTap: () {
+                            setState(() {
+                              _obscureConfirmPassword =
+                                  !_obscureConfirmPassword;
+                            });
+                          },
                           child: Icon(_obscureConfirmPassword
                               ? Icons.visibility
                               : Icons.visibility_off),
@@ -229,7 +218,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       height: 50,
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: _validateAndPrintForm,
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState?.save();
+
+                            print('Username: $_username, Password: $_password');
+                          }
+                        },
                         child: const Text(
                           'Register',
                           style: TextStyle(
