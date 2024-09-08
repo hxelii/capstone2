@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Main.dart',
       home: Scaffold(
-        body: RegistrationPage(), // Add the LoginForm here
+        body: LoginPage(), // Add the LoginForm here
       ),
     );
   }

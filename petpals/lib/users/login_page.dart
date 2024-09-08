@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   String? _password;
   bool _obscurePassword = true;
   bool _showSuffixIcon = false;
+  bool _showSuffixIconPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: GestureDetector(
+                        suffixIcon: _showSuffixIconPassword ?
+                        GestureDetector(
                           onTap: () {
                             setState(() {
                               _obscurePassword = !_obscurePassword;
@@ -109,9 +111,21 @@ class _LoginPageState extends State<LoginPage> {
                           child: Icon(_obscurePassword
                               ? Icons.visibility
                               : Icons.visibility_off),
-                        ),
+                        )
+                        :null,
                       ),
                       controller: _passwordController,
+                      onChanged: (passwordInput) {
+                        if (passwordInput.isNotEmpty) {
+                          setState(() {
+                            _showSuffixIconPassword = true;
+                          });
+                        } else {
+                          setState(() {
+                            _showSuffixIconPassword = false;
+                          });
+                        }
+                      },
                       validator: (password) {
                         if (password!.isEmpty) {
                           return 'Please enter your password';
