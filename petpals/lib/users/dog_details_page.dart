@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petpals/users/first_page.dart';
+import 'package:petpals/users/home_page.dart';
+
 
 class DogDetailsPage extends StatefulWidget {
   const DogDetailsPage({super.key});
@@ -47,6 +49,13 @@ class _DogDetailsPageState extends State<DogDetailsPage> {
       }
     });
   }
+
+  void _navigateToHomePage() {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const HomePage()),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -401,6 +410,7 @@ class _DogDetailsPageState extends State<DogDetailsPage> {
                   ),
                   onPressed: () {
                     print('Submit button is pressed.');
+                    _navigateToHomePage();
                   },
                   child: Text(
                     'S U B M I T',

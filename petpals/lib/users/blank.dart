@@ -12,10 +12,10 @@ class _BlankPageState extends State<BlankPage> {
   @override
   Widget build(BuildContext context) {
     return  const Scaffold(
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [],
+          children: [Text('BLANK PAGE')],
         ),
       )
     );

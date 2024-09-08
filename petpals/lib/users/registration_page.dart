@@ -26,6 +26,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
   bool _showSuffixIconPassword = false;
   bool _showSuffixIconConfirmPassword = false;
 
+   void _navigateToLoginPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +48,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset('images/LOGO.png',
+                    Image.asset('images/LOGO_clear.png',
                         width: 200, height: 200), // Set the image size
                     const SizedBox(height: 20),
                     //------------------------------------------------------------------- textformfield start ------------------------------------------------------------------
@@ -68,17 +75,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.person),
-                        suffixIcon: _showSuffixIconEmail
+                        suffixIcon: _showSuffixIconUsername
                             ? IconButton(
                                 icon: const Icon(Icons.close),
                                 onPressed: () {
                                   _usernameController
                                       .clear(); // Clear the controller
                                   setState(() {
-                                    _showSuffixIconEmail = false;
+                                    _showSuffixIconUsername = false;
                                   }); // Update the UI
                                   if (kDebugMode) {
-                                    print('Usernamelear button pressed');
+                                    print('Username clear button pressed');
                                   }
                                 },
                               )
@@ -157,7 +164,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: _showSuffixIconConfirmPassword ?
+                        suffixIcon: _showSuffixIconPassword ?
                         GestureDetector(
                           onTap: () {
                             setState(() {
@@ -233,7 +240,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       validator: (confirmPassword) {
                         if (confirmPassword!.isEmpty) {
-                          return 'Please enter your password';
+                          return 'Please confirm your password';
                         }
                         return null;
                       },
@@ -249,8 +256,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState?.save();
-
-                            print('Username: $_username, Password: $_password');
+                            print('Username: $_username, Email: $_email, Password: $_password,Confirm password: $_confirmPassword',);
+                            _navigateToLoginPage();
                           }
                         },
                         child: const Text(

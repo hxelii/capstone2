@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:petpals/users/first_page.dart';
+import 'package:petpals/users/home_page.dart';
+
 import 'package:petpals/users/registration_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,6 +25,20 @@ class _LoginPageState extends State<LoginPage> {
   bool _showSuffixIcon = false;
   bool _showSuffixIconPassword = false;
 
+  void _navigateToFirstPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const FirstPage()),
+    );
+  }
+
+  void _navigateToAnotherPage(BuildContext context, Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset('images/LOGO.png',
+                    Image.asset('images/LOGO_clear.png',
                         width: 200, height: 200), // Set the image size
                     const SizedBox(height: 20),
                     TextFormField(
@@ -101,18 +118,18 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: _showSuffixIconPassword ?
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                          child: Icon(_obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                        )
-                        :null,
+                        suffixIcon: _showSuffixIconPassword
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                                child: Icon(_obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                              )
+                            : null,
                       ),
                       controller: _passwordController,
                       onChanged: (passwordInput) {
@@ -150,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                             }
                             _usernameController.clear();
                             _passwordController.clear();
+                            _navigateToFirstPage();
                           }
                         },
                         child: const Text(
@@ -181,12 +199,16 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
+                                /*
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const RegistrationPage()),
                                 );
+                                */
+                                _navigateToAnotherPage(
+                                    context, const RegistrationPage());
                               },
                           ),
                         ],
