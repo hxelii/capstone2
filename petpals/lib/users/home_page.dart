@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:petpals/users/blank.dart';
 import 'package:petpals/users/first_page.dart';
 import 'package:petpals/users/login_page.dart';
 import 'package:petpals/users/message_page.dart';

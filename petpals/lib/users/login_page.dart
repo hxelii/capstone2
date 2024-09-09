@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:petpals/users/first_page.dart';
-import 'package:petpals/users/home_page.dart';
 
 import 'package:petpals/users/registration_page.dart';
 
