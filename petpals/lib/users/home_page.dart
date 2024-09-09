@@ -16,11 +16,15 @@ class _HomePageState extends State<HomePage> {
   final _searchController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _navigateToAnotherPage(BuildContext context, Widget page) {
-    Navigator.push(
+  void _navigateToAnotherPage(BuildContext context, Widget page,
+      {VoidCallback? onReturn}) async {
+    final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => page),
     );
+    if (onReturn != null) {
+      onReturn(); // Call the onReturn callback if it's not null
+    }
   }
 
   @override
@@ -527,15 +531,39 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.house),
-                  onPressed: () {
-                    _navigateToAnotherPage(context, const HomePage());
-                  }),
+                icon: const FaIcon(FontAwesomeIcons.house),
+                onPressed: () {
+                  _navigateToAnotherPage(
+                    context,
+                    const HomePage(),
+                    /*
+                    onReturn: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('You returned from HomePage')),
+                      );
+                    },
+                    */
+                  );
+                },
+              ),
               IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.message),
-                  onPressed: () {
-                    _navigateToAnotherPage(context, const MessagePage());
-                  }),
+                icon: const FaIcon(FontAwesomeIcons.message),
+                onPressed: () {
+                  _navigateToAnotherPage(
+                    context,
+                    const MessagePage(),
+                    /*
+                    onReturn: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('You returned from MessagePage')),
+                      );
+                    },
+                    */
+                  );
+                },
+              ),
               IconButton(
                   icon: const FaIcon(FontAwesomeIcons.bell),
                   onPressed: () {

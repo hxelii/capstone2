@@ -14,6 +14,7 @@ class MessagePage extends StatefulWidget {
 
 class _MessagePageState extends State<MessagePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final bool _pageLoaded = false;
 
   void _navigateToAnotherPage(BuildContext context, Widget page) {
     Navigator.push(
