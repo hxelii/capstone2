@@ -26,7 +26,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   bool _showSuffixIconPassword = false;
   bool _showSuffixIconConfirmPassword = false;
 
-   void _navigateToLoginPage() {
+  void _navigateToLoginPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -93,7 +93,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       validator: (username) {
                         if (username == null || username.isEmpty) {
-                          return 'Please enter your username';
+                          return 'Username is required.';
                         }
                         return null;
                       },
@@ -143,7 +143,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       validator: (email) {
                         if (email == null || email.isEmpty) {
-                          return 'Please enter your email';
+                          return 'Email is required.';
                         }
                         return null;
                       },
@@ -164,18 +164,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: _showSuffixIconPassword ?
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                          child: Icon(_obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                        )
-                        :null,
+                        suffixIcon: _showSuffixIconPassword
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                                child: Icon(_obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                              )
+                            : null,
                       ),
                       controller: _passwordController,
                       onChanged: (passwordInput) {
@@ -191,11 +191,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       validator: (password) {
                         if (password!.isEmpty) {
-                          return 'Please enter your password';
+                          return 'Password is required.';
                         }
                         return null;
                       },
-                
                       onSaved: (password) => _password = password!,
                     ),
                     //------------------------------------------------------------------- textformfield end -------------------------------------------------------------------
@@ -213,22 +212,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: _showSuffixIconConfirmPassword ?
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _obscureConfirmPassword =
-                              !_obscureConfirmPassword;
-                            });
-                          },
-                          child: Icon(_obscureConfirmPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                        ):null,
+                        suffixIcon: _showSuffixIconConfirmPassword
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
+                                  });
+                                },
+                                child: Icon(_obscureConfirmPassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                              )
+                            : null,
                       ),
                       controller: _confirmPasswordController,
-                      onChanged: (confirmPasswordInput){
-                         if (confirmPasswordInput.isNotEmpty) {
+                      onChanged: (confirmPasswordInput) {
+                        if (confirmPasswordInput.isNotEmpty) {
                           setState(() {
                             _showSuffixIconConfirmPassword = true;
                           });
@@ -240,7 +240,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       validator: (confirmPassword) {
                         if (confirmPassword!.isEmpty) {
-                          return 'Please confirm your password';
+                          return 'Confirm password is required.';
                         }
                         return null;
                       },
@@ -256,7 +256,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState?.save();
-                            print('Username: $_username, Email: $_email, Password: $_password,Confirm password: $_confirmPassword',);
+                            print(
+                              'Username: $_username, Email: $_email, Password: $_password,Confirm password: $_confirmPassword',
+                            );
                             _navigateToLoginPage();
                           }
                         },
