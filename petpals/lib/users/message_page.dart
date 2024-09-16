@@ -93,59 +93,209 @@ class _MessagePageState extends State<MessagePage> {
                   ],
                 ),
               ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        width: double.infinity,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          color: Colors.grey, // set the background color
-                          borderRadius: BorderRadius.circular(
-                              20), // add a border radius (optional)
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Container(
+                    //Background
+                    width: double.infinity,
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey, // set the background color
+                      borderRadius: BorderRadius.circular(
+                          0), // add a border radius (optional)
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.black), // add a white border
+                            ),
+                            child: Image.asset(
+                              'images/LOGO_clear.png',
+                              fit: BoxFit
+                                  .contain, // Ensures the logo fits within the title area
+                              width: 80,
+                              height: 80,
+                            ),
+                          ),
                         ),
-                        child: Row(
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                      width: 2,
-                                      color:
-                                          Colors.white), // add a white border
+                            SizedBox(height: 10),
+                            Text("(Name of user)"),
+                            SizedBox(
+                              width: 300.0,
+                              child: Text(
+                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                                style: TextStyle(
+                                  fontSize: 10.0,
                                 ),
-                                child: Image.asset(
-                                  'images/LOGO_clear.png',
-                                  fit: BoxFit
-                                      .contain, // Ensures the logo fits within the title area
-                                  width: 80,
-                                  height: 80,
-                                ),
+                                overflow: TextOverflow.ellipsis, //
                               ),
                             ),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("(Name of user)"),
-                                SizedBox(
-                                  width: 300.0,
-                                  child: Text(
-                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                    ),
-                                    overflow: TextOverflow.ellipsis, //
-                                  ),
+                          ],
+                        ),
+                      ],
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Container(
+                    //Background
+                    width: double.infinity,
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey, // set the background color
+                      borderRadius: BorderRadius.circular(
+                          0), // add a border radius (optional)
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.black), // add a white border
+                            ),
+                            child: Image.asset(
+                              'images/LOGO_clear.png',
+                              fit: BoxFit
+                                  .contain, // Ensures the logo fits within the title area
+                              width: 80,
+                              height: 80,
+                            ),
+                          ),
+                        ),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 10),
+                            Text("(Name of user)"),
+                            SizedBox(
+                              width: 300.0,
+                              child: Text(
+                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                                style: TextStyle(
+                                  fontSize: 10.0,
                                 ),
-                              ],
+                                overflow: TextOverflow.ellipsis, //
+                              ),
                             ),
                           ],
-                        )),
-                  ),
-                ],
+                        ),
+                      ],
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Container(
+                    //Background
+                    width: double.infinity,
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey, // set the background color
+                      borderRadius: BorderRadius.circular(
+                          0), // add a border radius (optional)
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.black), // add a white border
+                            ),
+                            child: Image.asset(
+                              'images/LOGO_clear.png',
+                              fit: BoxFit
+                                  .contain, // Ensures the logo fits within the title area
+                              width: 80,
+                              height: 80,
+                            ),
+                          ),
+                        ),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 10),
+                            Text("(Name of user)"),
+                            SizedBox(
+                              width: 300.0,
+                              child: Text(
+                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                ),
+                                overflow: TextOverflow.ellipsis, //
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Container(
+                    //Background
+                    width: double.infinity,
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey, // set the background color
+                      borderRadius: BorderRadius.circular(
+                          0), // add a border radius (optional)
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.black), // add a white border
+                            ),
+                            child: Image.asset(
+                              'images/LOGO_clear.png',
+                              fit: BoxFit
+                                  .contain, // Ensures the logo fits within the title area
+                              width: 80,
+                              height: 80,
+                            ),
+                          ),
+                        ),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 10),
+                            Text("(Name of user)"),
+                            SizedBox(
+                              width: 300.0,
+                              child: Text(
+                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                ),
+                                overflow: TextOverflow.ellipsis, //
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
               ),
             ],
           ),
