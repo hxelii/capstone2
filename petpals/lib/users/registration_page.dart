@@ -1,7 +1,12 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:petpals/users/login_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -10,8 +15,14 @@ class RegistrationPage extends StatefulWidget {
   State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
+
 class _RegistrationPageState extends State<RegistrationPage> {
+  
+  
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   final _formKey = GlobalKey<FormState>();
+
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -19,14 +30,41 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
-
-  String? _username, _email, _password, _confirmPassword;
   bool _showSuffixIconUsername = false;
   bool _showSuffixIconEmail = false;
   bool _showSuffixIconPassword = false;
   bool _showSuffixIconConfirmPassword = false;
 
-   void _navigateToLoginPage() {
+  String? _username, _email, _password, _confirmPassword;
+
+  // For validations
+  final emailRegExp = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
+
+
+  registerAccount() async {}
+
+  Future<void> _registerUser() async {
+    final user = {
+      'username': _usernameController.text,
+      'email': _emailController.text,
+      'password': _passwordController.text,
+      'confirmPassword': _confirmPasswordController.text,
+    };
+
+    await _firestore.collection('users').add(user);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Account created successfully.'),
+      ),
+    );
+
+    _navigateToLoginPage();
+  }
+
+  void _navigateToLoginPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -145,9 +183,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         if (email == null || email.isEmpty) {
                           return 'Please enter your email';
                         }
+
+                        if (!emailRegExp.hasMatch(email)) {
+                          return 'Please enter a valid email address';
+                        }
                         return null;
                       },
                       onSaved: (email) => _email = email ?? '',
+                      //maxLength: 50,
                     ),
                     //------------------------------------------------------------------- textformfield end -------------------------------------------------------------------
                     const SizedBox(height: 10),
@@ -164,18 +207,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: _showSuffixIconPassword ?
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                          child: Icon(_obscurePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                        )
-                        :null,
+                        suffixIcon: _showSuffixIconPassword
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                                child: Icon(_obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                              )
+                            : null,
                       ),
                       controller: _passwordController,
                       onChanged: (passwordInput) {
@@ -195,7 +238,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         }
                         return null;
                       },
-                
                       onSaved: (password) => _password = password!,
                     ),
                     //------------------------------------------------------------------- textformfield end -------------------------------------------------------------------
@@ -213,22 +255,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: _showSuffixIconConfirmPassword ?
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _obscureConfirmPassword =
-                              !_obscureConfirmPassword;
-                            });
-                          },
-                          child: Icon(_obscureConfirmPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                        ):null,
+                        suffixIcon: _showSuffixIconConfirmPassword
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
+                                  });
+                                },
+                                child: Icon(_obscureConfirmPassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                              )
+                            : null,
                       ),
                       controller: _confirmPasswordController,
-                      onChanged: (confirmPasswordInput){
-                         if (confirmPasswordInput.isNotEmpty) {
+                      onChanged: (confirmPasswordInput) {
+                        if (confirmPasswordInput.isNotEmpty) {
                           setState(() {
                             _showSuffixIconConfirmPassword = true;
                           });
@@ -256,8 +299,31 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState?.save();
-                            print('Username: $_username, Email: $_email, Password: $_password,Confirm password: $_confirmPassword',);
-                            _navigateToLoginPage();
+                            if (_username == null ||
+                                _email == null ||
+                                _password == null ||
+                                _confirmPassword == null) {
+                              // Display error message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Please fill in all fields'),
+                                ),
+                              );
+                              // Wait for 3 seconds
+                              Future.delayed(const Duration(seconds: 3), () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegistrationPage()),
+                                );
+                              });
+                            } else {
+                              // Register user
+                              _registerUser();
+                            }
+                          } else {
+                            return;
                           }
                         },
                         child: const Text(
@@ -270,7 +336,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10.0,
+                      height: 20.0,
                     ),
                     RichText(
                       text: TextSpan(
@@ -298,9 +364,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 50,
-                    ),
                   ],
                 ),
               ),
@@ -310,4 +373,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+  
 }
+
+

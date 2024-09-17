@@ -83,4 +83,5 @@ class DefaultFirebaseOptions {
     authDomain: 'capstonedb-a8a1e.firebaseapp.com',
     storageBucket: 'capstonedb-a8a1e.appspot.com',
   );
+
 }

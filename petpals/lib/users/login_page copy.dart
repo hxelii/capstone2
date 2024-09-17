@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:petpals/components/square_tile.dart';
+
 import 'package:petpals/users/first_page.dart';
 import 'package:petpals/users/registration_page.dart';
 
@@ -19,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _focusNode = FocusNode();
 
   String? _username;
   String? _password;
@@ -26,14 +26,15 @@ class _LoginPageState extends State<LoginPage> {
   bool _showSuffixIcon = false;
   bool _showSuffixIconPassword = false;
 
-  String? _errorMessage;
+  loginUser() {}
 
-  // Function to clear the validation error message after 3 seconds
-  void _startErrorClearTimer() {
-    Timer(const Duration(seconds: 3), () {
-      setState(() {
-        _errorMessage = null;
-      });
+  Future addUserDetails(String username, String email, String password,
+      String confirmPassword) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'username': username,
+      'email': email,
+      'password': password,
+      'confirmPassword': confirmPassword,
     });
   }
 
@@ -49,18 +50,6 @@ class _LoginPageState extends State<LoginPage> {
       context,
       MaterialPageRoute(builder: (context) => page),
     );
-  }
-
-  loginUser() {}
-
-  Future addUserDetails(String username, String email, String password,
-      String confirmPassword) async {
-    await FirebaseFirestore.instance.collection('users').add({
-      'username': username,
-      'email': email,
-      'password': password,
-      'confirmPassword': confirmPassword,
-    });
   }
 
   @override
@@ -83,9 +72,15 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       controller: _usernameController,
                       onChanged: (userInput) {
-                        setState(() {
-                          _showSuffixIcon = userInput.isNotEmpty;
-                        });
+                        if (userInput.isNotEmpty) {
+                          setState(() {
+                            _showSuffixIcon = true;
+                          });
+                        } else {
+                          setState(() {
+                            _showSuffixIcon = false;
+                          });
+                        }
                       },
                       decoration: InputDecoration(
                         labelText: 'Username',
@@ -95,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: 'Enter your username',
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         hintStyle: const TextStyle(
-                          color: Colors.grey, // hint text color
+                          color: Colors.grey, // change the color to grey
                           fontSize: 14,
                         ),
                         prefixIcon: const Icon(Icons.person),
@@ -103,10 +98,11 @@ class _LoginPageState extends State<LoginPage> {
                             ? IconButton(
                                 icon: const Icon(Icons.close),
                                 onPressed: () {
-                                  _usernameController.clear();
+                                  _usernameController
+                                      .clear(); // Clear the controller
                                   setState(() {
                                     _showSuffixIcon = false;
-                                  });
+                                  }); // Update the UI
                                   if (kDebugMode) {
                                     print('Clear button pressed');
                                   }
@@ -114,34 +110,14 @@ class _LoginPageState extends State<LoginPage> {
                               )
                             : null,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          _errorMessage = 'Username is required';
-                          _startErrorClearTimer(); // Start timer to clear the error message
-                          return _errorMessage;
-                        } else if (value.length < 4) {
-                          _errorMessage =
-                              'Username must be at least 4 characters long';
-                          _startErrorClearTimer();
-                          return _errorMessage;
-                        } else if (value.contains(' ')) {
-                          _errorMessage = 'Username cannot contain spaces';
-                          _startErrorClearTimer();
-                          return _errorMessage;
-                        } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
-                          _errorMessage =
-                              'Username can only contain letters and numbers';
-                          _startErrorClearTimer();
-                          return _errorMessage;
+                      validator: (username) {
+                        if (username == null || username.isEmpty) {
+                          return 'Please enter your username';
                         }
-
-                        _errorMessage =
-                            null; // Clear error if validation passes
                         return null;
                       },
                       onSaved: (username) => _username = username ?? '',
                     ),
-
                     //------------------------------------------------------------------- textformfield end -------------------------------------------------------------------
                     const SizedBox(height: 10),
                     //------------------------------------------------------------------- textformfield start -------------------------------------------------------------------
@@ -185,10 +161,8 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                       validator: (password) {
-                        if (password == null || password.isEmpty) {
-                          return 'Password is required';
-                        } else if (password.length < 8) {
-                          return 'Password must be at least 8 characters long';
+                        if (password!.isEmpty) {
+                          return 'Please enter your password';
                         }
                         return null;
                       },
@@ -201,7 +175,6 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState?.save();
 
@@ -211,7 +184,6 @@ class _LoginPageState extends State<LoginPage> {
                             }
                             _usernameController.clear();
                             _passwordController.clear();
-
                             _navigateToFirstPage();
                           }
                         },
@@ -248,6 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
+                                  loginUser();
                                   /*
                                   Navigator.push(
                                     context,
@@ -308,7 +281,16 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(
                           width: 5.0,
                         ),
-                        
+                        GestureDetector(
+                          child:
+                              const SquareTile(imagePath: 'images/google.png'),
+                          onTap: () {
+                            print(
+                              "Google logo tapped.",
+                            );
+                          },
+                        ),
+                        //Image.asset('images/google.png',height: 70,),
                       ],
                     )
                   ],
