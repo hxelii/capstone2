@@ -109,7 +109,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         hintStyle: const TextStyle(
                           color: Colors.grey, // change the color to grey
-                          fontSize: 14,
+                          fontSize: 16,
                         ),
                         prefixIcon: const Icon(Icons.person),
                         suffixIcon: _showSuffixIconUsername

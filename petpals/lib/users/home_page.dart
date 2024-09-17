@@ -4,7 +4,7 @@ import 'package:petpals/users/first_page.dart';
 import 'package:petpals/users/found_page.dart';
 import 'package:petpals/users/login_page.dart';
 import 'package:petpals/users/message_page.dart';
-import 'package:petpals/users/notification_page.dart';
+import 'package:petpals/users/notifications_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
           automaticallyImplyLeading: false, // Add this line
           leading: null, // Ensure the leading icon is set to null
           title: Image.asset(
-            'images/LOGO.png',
+            'images/LOGO_clear.png',
             fit: BoxFit.fill, // Ensures the logo fits within the title area
             height: 80, // Adjust the height to fit your logo
           ),
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Container(
                 height: 40,
-                color: Colors.black,
+                color: const Color.fromARGB(255, 145, 19, 10),
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -111,11 +111,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10.0,
-              ),
+            
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
                   controller: _searchController,
                   onChanged: (search) {},
@@ -590,7 +588,7 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   icon: const FaIcon(FontAwesomeIcons.bell),
                   onPressed: () {
-                    _navigateToAnotherPage(context, const NotificationPage());
+                    _navigateToAnotherPage(context, const NotificationsPage());
                   }),
             ],
           ),

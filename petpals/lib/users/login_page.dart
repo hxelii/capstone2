@@ -244,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: 50.0,
                     ),
                     Row(
                       children: [
