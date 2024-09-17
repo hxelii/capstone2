@@ -1,7 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:petpals/firebase_options.dart';
 import 'package:petpals/users/home_page.dart';
 import 'package:petpals/users/login_page.dart';
+import 'package:petpals/users/registration_page.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -10,7 +15,6 @@ import 'package:petpals/users/login_page.dart';
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   @override
