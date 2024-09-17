@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petpals/users/first_page.dart';
 import 'package:petpals/users/home_page.dart';
 import 'package:petpals/users/login_page.dart';
-import 'package:petpals/users/notification_page.dart';
+import 'package:petpals/users/notifications_page.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage({super.key});
@@ -318,7 +318,7 @@ class _MessagePageState extends State<MessagePage> {
               IconButton(
                   icon: const FaIcon(FontAwesomeIcons.bell),
                   onPressed: () {
-                    _navigateToAnotherPage(context, const NotificationPage());
+                    _navigateToAnotherPage(context, const NotificationsPage());
                   }),
             ],
           ),

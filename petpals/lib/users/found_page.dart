@@ -4,7 +4,7 @@ import 'package:petpals/users/first_page.dart';
 import 'package:petpals/users/home_page.dart';
 import 'package:petpals/users/login_page.dart';
 import 'package:petpals/users/message_page.dart';
-import 'package:petpals/users/notification_page.dart';
+import 'package:petpals/users/notifications_page.dart';
 
 class FoundPage extends StatefulWidget {
   const FoundPage({super.key});
@@ -36,7 +36,7 @@ class _FoundPageState extends State<FoundPage> {
           automaticallyImplyLeading: false, // Add this line
           leading: null, // Ensure the leading icon is set to null
           title: Image.asset(
-            'images/LOGO.png',
+            'images/LOGO_clear.png',
             fit: BoxFit.fill, // Ensures the logo fits within the title area
             height: 80, // Adjust the height to fit your logo
           ),
@@ -86,14 +86,14 @@ class _FoundPageState extends State<FoundPage> {
             children: [
               Container(
                 height: 40,
-                color: Colors.black,
+                color: Colors.green,
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     GestureDetector(
-                      onTap: () =>
-                          _navigateToAnotherPage(context, const HomePage()),
+                      onTap: () => _navigateToAnotherPage(
+                          context, const HomePage()),
                       child: const Text(
                         'Missing',
                         style: TextStyle(
@@ -596,7 +596,7 @@ class _FoundPageState extends State<FoundPage> {
               IconButton(
                   icon: const FaIcon(FontAwesomeIcons.bell),
                   onPressed: () {
-                    _navigateToAnotherPage(context, const NotificationPage());
+                    _navigateToAnotherPage(context, const NotificationsPage());
                   }),
             ],
           ),
