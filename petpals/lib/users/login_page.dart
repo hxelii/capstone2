@@ -114,29 +114,10 @@ class _LoginPageState extends State<LoginPage> {
                               )
                             : null,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          _errorMessage = 'Username is required';
-                          _startErrorClearTimer(); // Start timer to clear the error message
-                          return _errorMessage;
-                        } else if (value.length < 4) {
-                          _errorMessage =
-                              'Username must be at least 4 characters long';
-                          _startErrorClearTimer();
-                          return _errorMessage;
-                        } else if (value.contains(' ')) {
-                          _errorMessage = 'Username cannot contain spaces';
-                          _startErrorClearTimer();
-                          return _errorMessage;
-                        } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
-                          _errorMessage =
-                              'Username can only contain letters and numbers';
-                          _startErrorClearTimer();
-                          return _errorMessage;
+                      validator: (username) {
+                        if (username == null || username.isEmpty) {
+                          return 'Please enter your username';
                         }
-
-                        _errorMessage =
-                            null; // Clear error if validation passes
                         return null;
                       },
                       onSaved: (username) => _username = username ?? '',
@@ -185,10 +166,8 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                       validator: (password) {
-                        if (password == null || password.isEmpty) {
-                          return 'Password is required';
-                        } else if (password.length < 8) {
-                          return 'Password must be at least 8 characters long';
+                        if (password!.isEmpty) {
+                          return 'Please enter your password';
                         }
                         return null;
                       },

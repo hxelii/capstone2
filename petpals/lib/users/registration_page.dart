@@ -131,7 +131,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       validator: (username) {
                         if (username == null || username.isEmpty) {
-                          return 'Please enter your username';
+                          return 'Username is required.';
                         }
                         return null;
                       },
@@ -181,7 +181,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       validator: (email) {
                         if (email == null || email.isEmpty) {
-                          return 'Please enter your email';
+                          return 'Email is required.';
                         }
 
                         if (!emailRegExp.hasMatch(email)) {
@@ -234,7 +234,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       validator: (password) {
                         if (password!.isEmpty) {
-                          return 'Please enter your password';
+                          return 'Password is required.';
                         }
                         return null;
                       },
@@ -283,7 +283,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       validator: (confirmPassword) {
                         if (confirmPassword!.isEmpty) {
-                          return 'Please confirm your password';
+                          return 'Confirm password is required.';
                         }
                         return null;
                       },
@@ -299,31 +299,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState?.save();
-                            if (_username == null ||
-                                _email == null ||
-                                _password == null ||
-                                _confirmPassword == null) {
-                              // Display error message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Please fill in all fields'),
-                                ),
-                              );
-                              // Wait for 3 seconds
-                              Future.delayed(const Duration(seconds: 3), () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RegistrationPage()),
-                                );
-                              });
-                            } else {
-                              // Register user
-                              _registerUser();
-                            }
-                          } else {
-                            return;
+                            print('Username: $_username, Email: $_email, Password: $_password,Confirm password: $_confirmPassword',);
+                            _navigateToLoginPage();
                           }
                         },
                         child: const Text(
