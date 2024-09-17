@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petpals/users/dog_details_page.dart';
+import 'package:petpals/users/found_page.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({super.key});
@@ -70,6 +71,11 @@ class _FirstPageState extends State<FirstPage> {
                             const Size(300, 70)), // adjust width and height
                       ),
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FoundPage()),
+                        );
                         print('I found a dog button is pressed.');
                       },
                       child: Text(

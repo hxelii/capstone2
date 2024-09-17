@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petpals/users/first_page.dart';
-import 'package:petpals/users/found_page.dart';
+import 'package:petpals/users/home_page.dart';
 import 'package:petpals/users/login_page.dart';
 import 'package:petpals/users/message_page.dart';
 import 'package:petpals/users/notification_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class FoundPage extends StatefulWidget {
+  const FoundPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<FoundPage> createState() => _FoundPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _FoundPageState extends State<FoundPage> {
   final _searchController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -91,21 +91,27 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Text(
-                      'Missing',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () =>
+                          _navigateToAnotherPage(context, const HomePage()),
+                      child: const Text(
+                        'Missing',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        _navigateToAnotherPage(context, const FoundPage());
-                      },
+                      onTap: () {},
                       child: const Text(
                         'Found',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -171,9 +177,9 @@ class _HomePageState extends State<HomePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Name',
+                                    'Pet id:',
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
@@ -271,12 +277,14 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     debugPrint('Card tapped.');
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Column(
-                      children: [
-                        // Upper portion for the picture
-                        Container(
+                  child: Column(
+                    children: [
+                      const Padding(
+                          padding: EdgeInsets.all(8.0), child: SizedBox()),
+                      // Upper portion for the picture
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
                           height: 120, // Adjust the height as needed
                           width: 300,
                           decoration: const BoxDecoration(
@@ -287,112 +295,110 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        // Lower portion for the name and label
-                        const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: SizedBox(
-                            width: 300,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Name',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                      ),
+                      // Lower portion for the name and label
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          width: 300,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Pet id:',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    '(time posted)',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Breed:',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  Text(
+                                    '(Havanese)',
+                                    style: TextStyle(
+                                      color: Colors.blue, // Set the text color
+                                      fontSize: 13, // Set the text font size
+                                      fontWeight: FontWeight
+                                          .bold, // Set the text font weight
                                     ),
-                                    Text(
-                                      '(time posted)',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Gender',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  Text(
+                                    '(Male)',
+                                    style: TextStyle(
+                                      color: Colors.blue, // Set the text color
+                                      fontSize: 13, // Set the text font size
+                                      fontWeight: FontWeight
+                                          .bold, // Set the text font weight
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Breed:',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Last Seen:',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  Text(
+                                    '(Location seen):',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'More',
+                                    style: TextStyle(
+                                      fontSize: 14, // Set the text font size
+                                      fontWeight: FontWeight
+                                          .bold, // Set the text font weight
                                     ),
-                                    Text(
-                                      '(Havanese)',
-                                      style: TextStyle(
-                                        color:
-                                            Colors.blue, // Set the text color
-                                        fontSize: 13, // Set the text font size
-                                        fontWeight: FontWeight
-                                            .bold, // Set the text font weight
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Gender',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.grey),
-                                    ),
-                                    Text(
-                                      '(Male)',
-                                      style: TextStyle(
-                                        color:
-                                            Colors.blue, // Set the text color
-                                        fontSize: 13, // Set the text font size
-                                        fontWeight: FontWeight
-                                            .bold, // Set the text font weight
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Last Seen:',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.grey),
-                                    ),
-                                    Text(
-                                      '(Location seen):',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      'More',
-                                      style: TextStyle(
-                                        fontSize: 14, // Set the text font size
-                                        fontWeight: FontWeight
-                                            .bold, // Set the text font weight
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -404,12 +410,14 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     debugPrint('Card tapped.');
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Column(
-                      children: [
-                        // Upper portion for the picture
-                        Container(
+                  child: Column(
+                    children: [
+                      const Padding(
+                          padding: EdgeInsets.all(8.0), child: SizedBox()),
+                      // Upper portion for the picture
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
                           height: 120, // Adjust the height as needed
                           width: 300,
                           decoration: const BoxDecoration(
@@ -420,112 +428,110 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        // Lower portion for the name and label
-                        const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: SizedBox(
-                            width: 300,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Name',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                      ),
+                      // Lower portion for the name and label
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          width: 300,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Pet id:',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    '(time posted)',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Breed:',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  Text(
+                                    '(Havanese)',
+                                    style: TextStyle(
+                                      color: Colors.blue, // Set the text color
+                                      fontSize: 13, // Set the text font size
+                                      fontWeight: FontWeight
+                                          .bold, // Set the text font weight
                                     ),
-                                    Text(
-                                      '(time posted)',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Gender',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  Text(
+                                    '(Male)',
+                                    style: TextStyle(
+                                      color: Colors.blue, // Set the text color
+                                      fontSize: 13, // Set the text font size
+                                      fontWeight: FontWeight
+                                          .bold, // Set the text font weight
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Breed:',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Last Seen:',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  Text(
+                                    '(Location seen):',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'More',
+                                    style: TextStyle(
+                                      fontSize: 14, // Set the text font size
+                                      fontWeight: FontWeight
+                                          .bold, // Set the text font weight
                                     ),
-                                    Text(
-                                      '(Havanese)',
-                                      style: TextStyle(
-                                        color:
-                                            Colors.blue, // Set the text color
-                                        fontSize: 13, // Set the text font size
-                                        fontWeight: FontWeight
-                                            .bold, // Set the text font weight
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Gender',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.grey),
-                                    ),
-                                    Text(
-                                      '(Male)',
-                                      style: TextStyle(
-                                        color:
-                                            Colors.blue, // Set the text color
-                                        fontSize: 13, // Set the text font size
-                                        fontWeight: FontWeight
-                                            .bold, // Set the text font weight
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Last Seen:',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.grey),
-                                    ),
-                                    Text(
-                                      '(Location seen):',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      'More',
-                                      style: TextStyle(
-                                        fontSize: 14, // Set the text font size
-                                        fontWeight: FontWeight
-                                            .bold, // Set the text font weight
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -558,12 +564,12 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   _navigateToAnotherPage(
                     context,
-                    const HomePage(),
+                    const FoundPage(),
                     /*
                     onReturn: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text('You returned from HomePage')),
+                            content: Text('You returned from FoundPage')),
                       );
                     },
                     */
