@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       validator: (username) {
                         if (username == null || username.isEmpty) {
-                          return 'Please enter your username';
+                          return 'Username is required.';
                         }
                         return null;
                       },
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       validator: (password) {
                         if (password!.isEmpty) {
-                          return 'Please enter your password';
+                          return 'Password is required.';
                         }
                         return null;
                       },
